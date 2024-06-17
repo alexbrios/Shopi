@@ -1,9 +1,13 @@
+import { Layout } from "../../Components/Layout/Index"
+import { Card } from "../../Components/Card/Index"
+
 function Home() {
 
 return (
-        <div className='bg-blue-100'>
+        <Layout>
             Home
-        </div>
+            <Card/>
+        </Layout>
     )
 }
 
