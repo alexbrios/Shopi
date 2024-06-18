@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 
 
 const Layout = ({ children }) => {
+// El array de aquí abajo, es para que no me alga error visual nadamas
     Layout.propTypes = {
         children: PropTypes.node.isRequired,
     }
