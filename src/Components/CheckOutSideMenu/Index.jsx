@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import { Link } from "react-router-dom"
 import { ShoppingCartContext } from '../../Context/Index'
 import { XMarkIcon } from '@heroicons/react/24/solid'
 import { OrderCard } from '../OrderCard/Index'
@@ -13,6 +14,20 @@ const CheckoutSideMenu = () => {
         context.setCartProducts(filteredProducts)
     }
 
+    const handleCheckout = () => {
+        const orderToAdd = {
+            data: "01-02.23",
+            products: context.cartProducts,
+            totalProducts: context.cartProducts.length,
+            totalPrice: totalPrice(context.cartProducts)
+        }
+
+        context.setOrder([...context.order, orderToAdd])
+        context.setCartProducts([])
+        context.closeCheckoutSideMenu()
+    }
+
+
     return (
         <aside
         className={`${context.isCheckoutSideMenuOpen ? "flex" : "hidden"} checkout-side-menu flex-col fixed right-0 border border-black rounded-lg bg-white`}>
@@ -23,7 +38,7 @@ const CheckoutSideMenu = () => {
                 onClick={() => context.closeCheckoutSideMenu()}
                 ></XMarkIcon>
             </div>
-            <div className='px-6 overflow-y-scroll'>
+            <div className='px-6 overflow-y-scroll flex-1'>
                 {
                     context.cartProducts.map(product => (
                         <OrderCard
@@ -39,9 +54,12 @@ const CheckoutSideMenu = () => {
             </div>
             <div className='px-6'>
                 <p className='flex justify-between items-center'>
-                    <span className='font-light'>Total:</span>
+                    <span className='font-meidum text-lg'>Total:</span>
                     <span className='font-medium text-2xl'>${totalPrice(context.cartProducts)}</span>
                 </p>
+                <Link to="/my-orders/last">
+                    <button className='w-full bg-black py-3 text-white my-4 rounded-md' onClick={() => handleCheckout()}>Checkout</button>
+                </Link>
             </div>
         </aside>
     )
